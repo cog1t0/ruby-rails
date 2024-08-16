@@ -93,4 +93,5 @@ Rails.application.configure do
 
   # Add the hostname of the production environment
   config.hosts << "rails-production-f915.up.railway.app"
+  config.action_mailer.default_url_options = { host: "rails-production-f915.up.railway.app" }
 end
