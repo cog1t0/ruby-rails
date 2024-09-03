@@ -7,12 +7,12 @@ module Api
 
                 events.each do |event|
                     Rails.logger.info("==================== event: #{event.inspect}")
-                    line_user_id = event['source']['userId']
+                    line_id = event['source']['userId']
                     case event
                     when Line::Bot::Event::Message
                         case event.type
                         when Line::Bot::Event::MessageType::Text
-                            user = User.find_or_create_by(line_user_id: line_user_id)
+                            user = User.find_or_create_by(line_id: line_id)
 
                             messages = [
                                 {
@@ -61,7 +61,7 @@ module Api
                         case event['follow']['isUnblocked']
                         when "false" # フォローされたとき
                             Rails.logger.info("==================== Follow")
-                            user = User.find_or_create_by(line_user_id: line_user_id)
+                            user = User.find_or_create_by(line_id: line_id)
                             user.update(deleted_at: nil)
 
                             reply_message = {
@@ -72,7 +72,7 @@ module Api
                             LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
                         when "true" # ブロック解除されたとき
                             Rails.logger.info("==================== UnFollow")
-                            user = User.find_by(line_user_id: line_user_id)
+                            user = User.find_by(line_id: line_id)
                             user.update(deleted_at: Time.zone.now)
                         end
                     end
