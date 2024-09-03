@@ -28,7 +28,8 @@ module Api
                             ]
                             talk_logs = TalkLog.where(user_id: user.id).limit(10)
                             talk_logs.each do |talk_log|
-                            messages << talk_log.build_json
+                                messages << talk_log.build_json
+                            end
                         end
                         messages << {
                             "role": "user",
