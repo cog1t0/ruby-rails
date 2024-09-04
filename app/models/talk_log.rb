@@ -1,5 +1,6 @@
 class TalkLog < ApplicationRecord
     belongs_to :user
+    enum role: { user: 0, assistant: 1 }
 
     def build_json
         {
