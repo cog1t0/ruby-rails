@@ -8,17 +8,39 @@ module Api
                 events.each do |event|
                     Rails.logger.info("==================== event: #{event.inspect}")
                     line_id = event['source']['userId']
+                    user = User.find_or_create_by(line_id: line_id)
                     case event
                     when Line::Bot::Event::Message
                         case event.type
                         when Line::Bot::Event::MessageType::Text
-                            user = User.find_or_create_by(line_id: line_id)
                             # AIとの会話を生成
                             result = TalkWithAi.call(user: user, user_message: event.message['text'])
                             reply_message = result.reply_message
                         end
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
                     when Line::Bot::Event::Postback
+                        data = event['postback']['data']
+                        params = data.split('&').map { |param| param.split('=') }.to_h
+                        action = params['action']
+                        user_choice_id = params['user_choice_id']
+
+                        Rails.logger.info("==================== action: #{action} / user_choice_id: #{user_choice_id}")
+
+                        case action
+                        when 'bigfive'
+                            # ビッグファイブの回答のリプライメッセージを生成
+                            result = AnswerToBigFive.call(user: user, user_choice_id: user_choice_id)
+                            reply_message = result.reply_message
+                        else
+                            Rails.logger.error("==================== postback error")
+                            reply_message = {
+                                type: "text",
+                                text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。"
+                            }
+                        end
+
+                        LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
+                        
                     when Line::Bot::Event::Follow
                         case event['follow']['isUnblocked']
                         when "false" # フォローされたとき

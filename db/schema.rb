@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_01_091707) do
     t.string "title", null: false
     t.datetime "deleted_at"
     t.text "memo"
+    t.boolean "big_five_flg", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -82,16 +83,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_01_091707) do
 
   create_table "user_personalities", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "p_code_10"
-    t.integer "p_code_11"
-    t.integer "p_code_20"
-    t.integer "p_code_21"
-    t.integer "p_code_30"
-    t.integer "p_code_31"
-    t.integer "p_code_40"
-    t.integer "p_code_41"
-    t.integer "p_code_50"
-    t.integer "p_code_51"
+    t.integer "p_code_10", default: 0
+    t.integer "p_code_11", default: 0
+    t.integer "p_code_20", default: 0
+    t.integer "p_code_21", default: 0
+    t.integer "p_code_30", default: 0
+    t.integer "p_code_31", default: 0
+    t.integer "p_code_40", default: 0
+    t.integer "p_code_41", default: 0
+    t.integer "p_code_50", default: 0
+    t.integer "p_code_51", default: 0
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -104,6 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_01_091707) do
     t.string "stripe_subscription_id"
     t.boolean "subscription_flg", default: false
     t.date "expiration_date"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

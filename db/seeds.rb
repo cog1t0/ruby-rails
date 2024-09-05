@@ -118,7 +118,8 @@ Personality.create(
 
 # ==================== 外向性
 q = Question.create({
-    title: "人が集まるイベントについてどう感じますか？"
+    title: "人が集まるイベントについてどう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -136,7 +137,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分の意見をどのように伝えますか？"
+    title: "自分の意見をどのように伝えますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -154,7 +156,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "友達についてどう思いますか？"
+    title: "友達についてどう思いますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -172,7 +175,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "新しいことに挑戦するときの気持ちはどうですか？"
+    title: "新しいことに挑戦するときの気持ちはどうですか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -190,7 +194,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "仕事や勉強に対する姿勢はどうですか？"
+    title: "仕事や勉強に対する姿勢はどうですか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -208,7 +213,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分がリーダーになったとき、どう感じますか？"
+    title: "自分がリーダーになったとき、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -227,7 +233,8 @@ Choice.create(
 
 # ==================== 協調性
 q = Question.create({
-    title: "グループで何かをするとき、どのように感じますか？"
+    title: "グループで何かをするとき、どのように感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -245,7 +252,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "誰かが困っている時、どのように対応しますか？"
+    title: "誰かが困っている時、どのように対応しますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -263,7 +271,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "他の人が自分の意見と違う時、どうしますか？"
+    title: "他の人が自分の意見と違う時、どうしますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -281,7 +290,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "チームでのプロジェクトで、どのような役割が好きですか？"
+    title: "チームでのプロジェクトで、どのような役割が好きですか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -299,7 +309,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分の気持ちを伝える時、どう感じますか？"
+    title: "自分の気持ちを伝える時、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -317,7 +328,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分が成功するために、どう行動しますか？"
+    title: "自分が成功するために、どう行動しますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -336,7 +348,8 @@ Choice.create(
 
 # ==================== 良識性
 q = Question.create({
-    title: "仕事や勉強をするとき、どのように取り組みますか？"
+    title: "仕事や勉強をするとき、どのように取り組みますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -354,7 +367,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "大事な約束の時間に遅れそうな時、どうしますか？"
+    title: "大事な約束の時間に遅れそうな時、どうしますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -372,7 +386,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "お金やものを使うとき、どう考えますか？"
+    title: "お金やものを使うとき、どう考えますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -390,7 +405,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "新しくなにかを始める時、どう準備しますか？"
+    title: "新しくなにかを始める時、どう準備しますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -402,13 +418,14 @@ Choice.create(
 Choice.create(
     {
         question_id: q.id,
-        text: " 大まかな方向性を決めて、途中で調整しながら進める",
+        text: "大まかな方向性を決めて、途中で調整しながら進める",
         p_code_30: 10,
     }
 )
 
 q = Question.create({
-    title: "仕事や勉強が終わらない時、どう感じますか？"
+    title: "仕事や勉強が終わらない時、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -426,7 +443,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "物事に対する感情のコントロールはどうしていますか？"
+    title: "物事に対する感情のコントロールはどうしていますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -444,7 +462,8 @@ Choice.create(
 )
 # ==================== 情緒安定性
 q = Question.create({
-    title: "何か困ったことが起きたとき、どう対処しますか？"
+    title: "何か困ったことが起きたとき、どう対処しますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -462,7 +481,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "忙しい日々の中で、どう気持ちを保ちますか？"
+    title: "忙しい日々の中で、どう気持ちを保ちますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -480,7 +500,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "他の人の成功を見たとき、どう感じますか？"
+    title: "他の人の成功を見たとき、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -498,7 +519,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "急に予定が変わったとき、どのように対応しますか？"
+    title: "急に予定が変わったとき、どのように対応しますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -516,7 +538,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "人前で発表や話をする場面で、どう感じますか？"
+    title: "人前で発表や話をする場面で、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -534,7 +557,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "感情が高ぶったとき、どうコントロールしますか？"
+    title: "感情が高ぶったとき、どうコントロールしますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -553,7 +577,8 @@ Choice.create(
 
 # ==================== 好奇心
 q = Question.create({
-    title: "新しい話題に触れたとき、どう感じますか？"
+    title: "新しい話題に触れたとき、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -571,7 +596,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "何か新しいことに挑戦する機会があったら、どうしますか？"
+    title: "何か新しいことに挑戦する機会があったら、どうしますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -589,7 +615,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分が知らないことを知ったとき、どう感じますか？"
+    title: "自分が知らないことを知ったとき、どう感じますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -607,7 +634,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "難しい問題に直面したとき、どう対処しますか？"
+    title: "難しい問題に直面したとき、どう対処しますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -625,7 +653,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "芸術や文化に対してどう思いますか？"
+    title: "芸術や文化に対してどう思いますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
@@ -643,7 +672,8 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分の知らない分野について、どう取り組みますか？"
+    title: "自分の知らない分野について、どう取り組みますか？",
+    big_five_flg: true
 })
 Choice.create(
     {
