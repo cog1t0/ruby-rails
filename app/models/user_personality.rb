@@ -1,6 +1,10 @@
 class UserPersonality < ApplicationRecord
     belongs_to :user
 
+    def test
+        puts "test"
+    end
+
     def update_point(answer)
         choice = answer.choice
         update(
