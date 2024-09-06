@@ -8,9 +8,9 @@ Rails.application.load_tasks
 desc 'db_reset'
 task :db_reset do
     puts '----- db_reset start -----'
-    system('docker-compose exec run rails db:migrate:reset')
+    system('rails db:migrate:reset')
     puts '----- db_reset db:migrate:reset finish -----'
-    system('docker-compose exec run rails db:seed')
+    system('run rails db:seed')
     puts '----- db_reset db:seed finish -----'
     puts '----- db_reset end -----'
 end 
