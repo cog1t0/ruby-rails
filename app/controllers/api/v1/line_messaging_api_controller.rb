@@ -29,7 +29,7 @@ module Api
                         case action
                         when 'bigfive'
                             # ビッグファイブの回答のリプライメッセージを生成
-                            result = AnswerToBigFive.call(user: user, user_choice_id: user_choice_id)
+                            result = AnswerToBigfive.call(user: user, user_choice_id: user_choice_id)
                             reply_message = result.reply_message
                         else
                             Rails.logger.error("==================== postback error")
@@ -40,7 +40,7 @@ module Api
                         end
 
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
-                        
+
                     when Line::Bot::Event::Follow
                         case event['follow']['isUnblocked']
                         when "false" # フォローされたとき
