@@ -4,6 +4,7 @@ module Api
             def callback
                 body = request.body.read
                 events = LINEBOT_CLIENT.parse_events_from(body)
+                reply_message = []
 
                 events.each do |event|
                     Rails.logger.info("==================== event: #{event.inspect}")
@@ -15,7 +16,7 @@ module Api
                         when Line::Bot::Event::MessageType::Text
                             # AIとの会話を生成
                             result = TalkWithAi.call(user: user, user_message: event.message['text'])
-                            reply_message = result.reply_message
+                            reply_message << result.reply_message
                         end
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
                     when Line::Bot::Event::Postback
@@ -30,13 +31,10 @@ module Api
                         when 'bigfive'
                             # ビッグファイブの回答のリプライメッセージを生成
                             result = AnswerToBigfive.call(user: user, user_choice_id: user_choice_id)
-                            reply_message = result.reply_message
+                            reply_message << result.reply_message
                         else
                             Rails.logger.error("==================== postback error")
-                            reply_message = {
-                                type: "text",
-                                text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。"
-                            }
+                            reply_message << ReplyMessage::Text.call(text: "他の機能は、これから作るから待っててね！")
                         end
 
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
@@ -48,10 +46,7 @@ module Api
                             user = User.find_or_create_by(line_id: line_id)
                             user.update(deleted_at: nil)
 
-                            reply_message = {
-                                type: "text",
-                                text: 'こんにちは！よろしくね！性格診断をしていくよ！'
-                            }
+                            reply_message << ReplyMessage::Text.call(text: "こんにちは！よろしくね！性格診断をしていくよ！")
             
                             LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
                         when "true" # ブロック解除されたとき

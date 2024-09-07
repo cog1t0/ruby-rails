@@ -13,7 +13,6 @@ class AnswerToBigfive
 
              # 次の質問の準備
              if user.big_five_progress.finished?
-                
                 # 終了
                 reply_message << ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
@@ -21,11 +20,14 @@ class AnswerToBigfive
                 return
             end
 
-            # 初回
+            # リッチメニューから性格診断を実施
             if user_choice_id.nil?
-                user.big_five_progress.update(next_question_id: Question.big_five.first.id)
-                # 回答開始のメッセージを作成
-                reply_message << ReplyMessage::Text.call(text: "性格診断をはじめるよ！考えこまないでこたえてね！")
+                if user.answers.count == 0
+                    # 回答開始のメッセージを作成
+                    reply_message << ReplyMessage::Text.call(text: "性格診断をはじめるよ！考えこまないでこたえてね！")
+                end
+                # 次の質問の取得
+                question = Question.find(user.big_five_progress.current_question_id)
             else
                 # 2回目以降
                 # 回答の保存
