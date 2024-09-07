@@ -54,7 +54,7 @@ class AnswerToBigfive
             reply_message << ReplyMessage::Text.call(text: "1. #{choice1.text}\n2. #{choice2.text}")
 
             # 選択肢のボタン
-            reply_message << ReplyMessage::Bugfive::Buttons.call(question: question, choice1: choice1, choice2: choice2)
+            reply_message << ReplyMessage::Bigfive::Buttons.call(question: question, choice1: choice1, choice2: choice2)
 
             context.reply_message = reply_message
         rescue => error

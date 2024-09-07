@@ -1,4 +1,4 @@
-class ReplyMessage::Bugfive::Buttons
+class ReplyMessage::Bigfive::Buttons
     include Interactor
 
     # context
