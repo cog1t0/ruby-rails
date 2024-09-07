@@ -5,6 +5,7 @@ class TalkWithAi
     #   user
     #   user_message
     def call
+        reply_message = []
         begin
             messages = [
                 {
@@ -44,17 +45,12 @@ class TalkWithAi
             TalkLog.create(user_id: context.user.id, role: "user", content: context.user_message)
             text = response.dig("choices", 0, "message", "content")
             TalkLog.create(user_id: context.user.id, role: "assistant", content: text)
-            reply_message = {
-                type: "text",
-                text: text
-            }
+
+            reply_message << ReplyMessage::Text.call(text: text)
             context.reply_message = reply_message
         rescue => error
             Rails.logger.error(error)
-            reply_message = {
-                type: "text",
-                text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度お試してね。"
-            }
+            reply_message << ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度お試してね。")
             context.reply_message = reply_message
             context.fail!
         end

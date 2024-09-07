@@ -175,44 +175,6 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "新しいことに挑戦するときの気持ちはどうですか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "新しいことにどんどん挑戦してみたい。何かに取り組むときは、積極的に行動する",
-        p_code_11: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "新しいことにはあまり興味がなく、今ある環境で静かに過ごしたい",
-        p_code_10: 10,
-    }
-)
-
-q = Question.create({
-    title: "仕事や勉強に対する姿勢はどうですか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "仕事や勉強に幅広く興味を持ち、いろいろなことにしっかり取り組む",
-        p_code_11: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "興味のある分野は少ないが、それに対しては地道に取り組む",
-        p_code_10: 10,
-    }
-)
-
-q = Question.create({
     title: "自分がリーダーになったとき、どう感じますか？",
     big_five_flg: true
 })
@@ -271,25 +233,6 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "他の人が自分の意見と違う時、どうしますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "まずは相手の意見をよく聞いて、共通点を探すようにする",
-        p_code_21: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "自分の意見を大事にしますが、相手の話も理解しようとする",
-        p_code_20: 10,
-    }
-)
-
-q = Question.create({
     title: "チームでのプロジェクトで、どのような役割が好きですか？",
     big_five_flg: true
 })
@@ -327,25 +270,6 @@ Choice.create(
     }
 )
 
-q = Question.create({
-    title: "自分が成功するために、どう行動しますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "自分の成功と同じくらい、他の人の成功も大切にして協力する",
-        p_code_21: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "自分の成功を目指して努力しますが、他の人との協力も大事にする",
-        p_code_20: 10,
-    }
-)
-
 # ==================== 良識性
 q = Question.create({
     title: "仕事や勉強をするとき、どのように取り組みますか？",
@@ -367,25 +291,6 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "大事な約束の時間に遅れそうな時、どうしますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "遅れないように、できるだけ早く準備を整える",
-        p_code_31: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "遅れそうなら、その場の状況で対応を考える",
-        p_code_30: 10,
-    }
-)
-
-q = Question.create({
     title: "お金やものを使うとき、どう考えますか？",
     big_five_flg: true
 })
@@ -400,25 +305,6 @@ Choice.create(
     {
         question_id: q.id,
         text: "必要だと思ったときに使うようにする",
-        p_code_30: 10,
-    }
-)
-
-q = Question.create({
-    title: "新しくなにかを始める時、どう準備しますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "まず計画を立てて、しっかりと準備をする",
-        p_code_31: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "大まかな方向性を決めて、途中で調整しながら進める",
         p_code_30: 10,
     }
 )
@@ -461,25 +347,6 @@ Choice.create(
     }
 )
 # ==================== 情緒安定性
-q = Question.create({
-    title: "何か困ったことが起きたとき、どう対処しますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "まずは落ち着いて考えて、どのように対処するか決める",
-        p_code_41: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "少し不安になりますが、どうすればいいか考えながら対応する",
-        p_code_40: 10,
-    }
-)
-
 q = Question.create({
     title: "忙しい日々の中で、どう気持ちを保ちますか？",
     big_five_flg: true
@@ -556,25 +423,6 @@ Choice.create(
     }
 )
 
-q = Question.create({
-    title: "感情が高ぶったとき、どうコントロールしますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "深呼吸をして落ち着き、冷静に対応しようとする",
-        p_code_41: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "感情が出ることもありますが、できるだけ落ち着くようにする",
-        p_code_40: 10,
-    }
-)
-
 # ==================== 好奇心
 q = Question.create({
     title: "新しい話題に触れたとき、どう感じますか？",
@@ -615,25 +463,6 @@ Choice.create(
 )
 
 q = Question.create({
-    title: "自分が知らないことを知ったとき、どう感じますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "知らないことを知ると、もっと学びたくなる",
-        p_code_51: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "知識が増えるのは良いですが、必要なことだけを覚えるようにする",
-        p_code_50: 10,
-    }
-)
-
-q = Question.create({
     title: "難しい問題に直面したとき、どう対処しますか？",
     big_five_flg: true
 })
@@ -667,25 +496,6 @@ Choice.create(
     {
         question_id: q.id,
         text: "自分に直接関係するもの以外には、あまり興味がない",
-        p_code_50: 10,
-    }
-)
-
-q = Question.create({
-    title: "自分の知らない分野について、どう取り組みますか？",
-    big_five_flg: true
-})
-Choice.create(
-    {
-        question_id: q.id,
-        text: "まずは興味を持って調べる。新しい知識を得るのが好き",
-        p_code_51: 10,
-    }
-)
-Choice.create(
-    {
-        question_id: q.id,
-        text: "興味がない分野については、あまり時間をかけない",
         p_code_50: 10,
     }
 )

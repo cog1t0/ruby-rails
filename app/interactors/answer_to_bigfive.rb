@@ -15,10 +15,7 @@ class AnswerToBigfive
              if user.big_five_progress.finished?
                 
                 # 終了
-                reply_message << {
-                    type: "text",
-                    text: "おつかれさまでした！"
-                }
+                reply_message << ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
                 context.reply_message = reply_message
                 return
@@ -28,66 +25,41 @@ class AnswerToBigfive
             if user_choice_id.nil?
                 user.big_five_progress.update(next_question_id: Question.big_five.first.id)
                 # 回答開始のメッセージを作成
-                reply_message << {
-                    type: "text",
-                    text: "性格診断をはじめるよ！考えこまないでこたえてね！"
-                }
+                reply_message << ReplyMessage::Text.call(text: "性格診断をはじめるよ！考えこまないでこたえてね！")
             else
                 # 2回目以降
                 # 回答の保存
-                answer = Answer.create(user_id: user.id, choice_id: user_choice_id)
-                user.big_five_progress.answer_question(answer)
-                user.user_personality.update_point(answer)
+                if user.big_five_progress.in_order?(user_choice_id)
+                    answer = Answer.create(user_id: user.id, choice_id: user_choice_id)
+                    user.big_five_progress.answer_question(answer)
+                    user.user_personality.update_point(answer)
+                    # 次の質問の取得
+                    question = Question.find(user.big_five_progress.next_question_id)
+                else
+                    reply_message << ReplyMessage::Text.call(text: "順番通りに回答してね！")
+                    # 順番通りの質問を取得
+                    question = Question.find(user.big_five_progress.current_question_id)
+                end
             end
 
-            # 次の質問の取得
-            question = Question.find(user.big_five_progress.next_question_id)
             choice1 = question.choices[0]
             choice2 = question.choices[1]
 
             # 質問の表示
-            reply_message << {
-                type: "text",
-                text: question.title
-            }
+            reply_message << ReplyMessage::Text.call(text: "Q.#{question.id} #{question.title}")
 
             # 選択肢の表示
-            reply_message << {
-                type: "text",
-                text: "1. #{choice1.text}\n2. #{choice2.text}" 
-            }
+            reply_message << ReplyMessage::Text.call(text: "1. #{choice1.text}\n2. #{choice2.text}")
 
             # 選択肢のボタン
-            reply_message << {
-                type: "template",
-                altText: question.title,
-                template: {
-                    type: "buttons",
-                    text: "自分の考えに近いものを選んでね",
-                    actions: [
-                        {
-                            type: "postback",
-                            label: '1だと思う',
-                            data: "action=bigfive&user_choice_id=#{choice1.id}"
-                        },
-                        {
-                            type: "postback",
-                            label: '2だと思う',
-                            data: "action=bigfive&user_choice_id=#{choice2.id}"
-                        }
-                    ]
-                }
-            }
+            reply_message << ReplyMessage::Bugfive::Buttons.call(question: question, choice1: choice1, choice2: choice2)
 
             context.reply_message = reply_message
         rescue => error
             Rails.logger.error(error)
 
             reply_message = []
-            reply_message << {
-                type: "text",
-                text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。"
-            }
+            reply_message << ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。")
             context.reply_message = reply_message
             context.fail!
         end
