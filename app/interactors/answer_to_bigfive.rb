@@ -31,6 +31,7 @@ class AnswerToBigfive
                 end
                 # 次の質問の取得
                 question = Question.find(user.big_five_progress.current_question_id)
+                puts "user_choice_id = nil ========== question = #{question.inspect}"
             else
                 puts "user_choice_id = #{user_choice_id} =========="
                 choice = Choice.find(user_choice_id)
@@ -59,6 +60,8 @@ class AnswerToBigfive
 
             choice1 = question.choices[0]
             choice2 = question.choices[1]
+            puts "choice1 = #{choice1.inspect}"
+            puts "choice2 = #{choice2.inspect}"
 
             # 質問の表示
             reply_message << ReplyMessage::Text.call(text: "Q.#{question.id} #{question.title}")
@@ -68,7 +71,7 @@ class AnswerToBigfive
 
             # 選択肢のボタン
             reply_message << ReplyMessage::Bigfive::Buttons.call(question: question, choice1: choice1, choice2: choice2)
-
+            puts "reply_message = #{reply_message.inspect}"
             context.reply_message = reply_message
         rescue => error
             Rails.logger.error(error)
