@@ -7,12 +7,14 @@ class AnswerToBigfive
     
     def call
         begin
+            puts "AnswerToBigfive =========="
             user = context.user
             user_choice_id = context.user_choice_id
             reply_message = []
 
              # 次の質問の準備
              if user.big_five_progress.finished?
+                puts "finished =========="
                 # 終了
                 reply_message << ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
@@ -22,6 +24,7 @@ class AnswerToBigfive
 
             # リッチメニューから性格診断を実施
             if user_choice_id.nil?
+                puts "user_choice_id = nil =========="
                 if user.answers.count == 0
                     # 回答開始のメッセージを作成
                     reply_message << ReplyMessage::Text.call(text: "性格診断をはじめるよ！考えこまないでこたえてね！")
@@ -29,9 +32,11 @@ class AnswerToBigfive
                 # 次の質問の取得
                 question = Question.find(user.big_five_progress.current_question_id)
             else
+                puts "user_choice_id = #{user_choice_id} =========="
+                choice = Choice.find(user_choice_id)
                 # 2回目以降
                 # 回答の保存
-                if user.big_five_progress.in_order?(user_choice_id)
+                if user.big_five_progress.in_order?(choice)
                     answer = Answer.create(user_id: user.id, choice_id: user_choice_id)
                     user.big_five_progress.answer_question(answer)
                     user.user_personality.update_point(answer)
