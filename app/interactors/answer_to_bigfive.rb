@@ -40,8 +40,16 @@ class AnswerToBigfive
                     answer = Answer.create(user_id: user.id, choice_id: user_choice_id)
                     user.big_five_progress.answer_question(answer)
                     user.user_personality.update_point(answer)
-                    # 次の質問の取得
-                    question = Question.find(user.big_five_progress.next_question_id)
+                    if user.big_five_progress.finished?
+                        # 終了
+                        reply_message << ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
+
+                        context.reply_message = reply_message
+                        return
+                    else
+                        # 次の質問の取得
+                        question = Question.find(user.big_five_progress.next_question_id)
+                    end
                 else
                     reply_message << ReplyMessage::Text.call(text: "順番通りに回答してね！")
                     # 順番通りの質問を取得
