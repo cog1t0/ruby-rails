@@ -14,6 +14,7 @@ module Api
                     when Line::Bot::Event::Message
                         case event.type
                         when Line::Bot::Event::MessageType::Text
+                            LoadingAnimation::LoadingAnimation.call(chatId: event['source']['userId'])
                             # AIとの会話を生成
                             result = TalkWithAi.call(user: user, user_message: event.message['text'])
                             reply_message << result.reply_message
