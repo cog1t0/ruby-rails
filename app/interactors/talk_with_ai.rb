@@ -20,7 +20,7 @@ class TalkWithAi
             ]
             if context.user.user_personality.memo.present?
                 messages << {
-                    "role": "asistant",
+                    "role": "assistant",
                     "content": [
                         "#ユーザーの性格 " + context.user.user_personality.memo 
                     ]
