@@ -22,7 +22,10 @@ class TalkWithAi
                 messages << {
                     "role": "assistant",
                     "content": [
-                        "#ユーザーの性格 " + context.user.user_personality.memo 
+                        {
+                            "text": "#ユーザーの性格 " + context.user.user_personality.memo,
+                            "type": "text"
+                        } 
                     ]
                 }
             end
