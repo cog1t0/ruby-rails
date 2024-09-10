@@ -39,6 +39,8 @@ module Api
                             reply_message << result.reply_message
                         end
 
+                        Rails.logger.info("==================== line_messaging_api: reply_message: #{reply_message.inspect}")
+
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
 
                     when Line::Bot::Event::Follow
