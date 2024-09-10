@@ -42,6 +42,7 @@ class AnalyseUserPersonalityForTalk
             }
         ]
 
+        openai_client = OpenAI::Client.new
         response = openai_client.chat(
             parameters: {
                 model: "gpt-4o-mini",
