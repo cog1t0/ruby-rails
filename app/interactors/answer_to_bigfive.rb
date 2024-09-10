@@ -18,7 +18,7 @@ class AnswerToBigfive
                 # 終了
                 result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
-                context.reply_message = result.reply_message
+                context.reply_messages = [result.reply_message]
                 return
             end
 
@@ -46,7 +46,7 @@ class AnswerToBigfive
                         # 終了
                         result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
-                        context.reply_message = result.reply_message
+                        context.reply_messages = [result.reply_message]
                         return
                     else
                         # 次の質問の取得
@@ -78,13 +78,12 @@ class AnswerToBigfive
             reply_message << result.reply_message
 
             puts "reply_message = #{reply_message.inspect}"
-            context.reply_message = reply_message
+            context.reply_messages = reply_message
         rescue => error
             Rails.logger.error(error)
 
-            reply_message = []
             result = ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。")
-            context.reply_message = result.reply_message
+            context.reply_messages = [result.reply_message]
             context.fail!
         end
     end

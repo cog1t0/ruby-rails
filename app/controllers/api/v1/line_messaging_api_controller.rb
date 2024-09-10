@@ -32,7 +32,8 @@ module Api
                         when 'bigfive'
                             # ビッグファイブの回答のリプライメッセージを生成
                             result = AnswerToBigfive.call(user: user, user_choice_id: user_choice_id)
-                            reply_message << result.reply_message
+                            # 配列で返ってくるので、それを展開してreply_messageに追加
+                            reply_message.concat(result.reply_messages)
                         else
                             Rails.logger.error("==================== postback error")
                             result = ReplyMessage::Text.call(text: "他の機能は、これから作るから待っててね！")
