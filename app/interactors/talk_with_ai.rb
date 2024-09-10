@@ -46,12 +46,12 @@ class TalkWithAi
             text = response.dig("choices", 0, "message", "content")
             TalkLog.create(user_id: context.user.id, role: "assistant", content: text)
 
-            reply_message << ReplyMessage::Text.call(text: text)
-            context.reply_message = reply_message
+            result = ReplyMessage::Text.call(text: text)
+            context.reply_message = result.reply_message
         rescue => error
             Rails.logger.error(error)
-            reply_message << ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度お試してね。")
-            context.reply_message = reply_message
+            result = ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度お試してね。")
+            context.reply_message = result.reply_message
             context.fail!
         end
     end

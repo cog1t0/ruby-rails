@@ -16,9 +16,9 @@ class AnswerToBigfive
              if user.big_five_progress.finished?
                 puts "finished =========="
                 # 終了
-                reply_message << ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
+                result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
-                context.reply_message = reply_message
+                context.reply_message = result.reply_message
                 return
             end
 
@@ -27,7 +27,8 @@ class AnswerToBigfive
                 puts "user_choice_id = nil =========="
                 if user.answers.count == 0
                     # 回答開始のメッセージを作成
-                    reply_message << ReplyMessage::Text.call(text: "性格診断をはじめるよ！考えこまないでこたえてね！")
+                    result = ReplyMessage::Text.call(text: "性格診断をはじめるよ！考えこまないでこたえてね！")
+                    reply_message << result.reply_message
                 end
                 # 次の質問の取得
                 question = Question.find(user.big_five_progress.current_question_id)
@@ -43,16 +44,17 @@ class AnswerToBigfive
                     user.user_personality.update_point(answer)
                     if user.big_five_progress.finished?
                         # 終了
-                        reply_message << ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
+                        result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
 
-                        context.reply_message = reply_message
+                        context.reply_message = result.reply_message
                         return
                     else
                         # 次の質問の取得
                         question = Question.find(user.big_five_progress.next_question_id)
                     end
                 else
-                    reply_message << ReplyMessage::Text.call(text: "順番通りに回答してね！")
+                    result = ReplyMessage::Text.call(text: "順番通りに回答してね！")
+                    reply_message << result.reply_message
                     # 順番通りの質問を取得
                     question = Question.find(user.big_five_progress.current_question_id)
                 end
@@ -64,21 +66,25 @@ class AnswerToBigfive
             puts "choice2 = #{choice2.inspect}"
 
             # 質問の表示
-            reply_message << ReplyMessage::Text.call(text: "Q.#{question.id} #{question.title}")
+            result = ReplyMessage::Text.call(text: "Q.#{question.id} #{question.title}")
+            reply_message << result.reply_message
 
             # 選択肢の表示
-            reply_message << ReplyMessage::Text.call(text: "1. #{choice1.text}\n2. #{choice2.text}")
+            result = ReplyMessage::Text.call(text: "1. #{choice1.text}\n2. #{choice2.text}")
+            reply_message << result.reply_message
 
             # 選択肢のボタン
-            reply_message << ReplyMessage::Bigfive::Buttons.call(question: question, choice1: choice1, choice2: choice2)
+            result = ReplyMessage::Bigfive::Buttons.call(question: question, choice1: choice1, choice2: choice2)
+            reply_message << result.reply_message
+
             puts "reply_message = #{reply_message.inspect}"
             context.reply_message = reply_message
         rescue => error
             Rails.logger.error(error)
 
             reply_message = []
-            reply_message << ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。")
-            context.reply_message = reply_message
+            result = ReplyMessage::Text.call(text: "ちょっと調子が悪いみたい。しばらくしてから、もう一度ためしてね。")
+            context.reply_message = result.reply_message
             context.fail!
         end
     end

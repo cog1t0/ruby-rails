@@ -47,7 +47,8 @@ module Api
                             user = User.find_or_create_by(line_id: line_id)
                             user.update(deleted_at: nil)
 
-                            reply_message << ReplyMessage::Text.call(text: "こんにちは！よろしくね！性格診断をしていくよ！")
+                            result = ReplyMessage::Text.call(text: "こんにちは！よろしくね！性格診断をしていくよ！")
+                            reply_message << result.reply_message
             
                             LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
                         when "true" # ブロック解除されたとき
