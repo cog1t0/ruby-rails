@@ -35,7 +35,8 @@ module Api
                             reply_message << result.reply_message
                         else
                             Rails.logger.error("==================== postback error")
-                            reply_message << ReplyMessage::Text.call(text: "他の機能は、これから作るから待っててね！")
+                            result = ReplyMessage::Text.call(text: "他の機能は、これから作るから待っててね！")
+                            reply_message << result.reply_message
                         end
 
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
