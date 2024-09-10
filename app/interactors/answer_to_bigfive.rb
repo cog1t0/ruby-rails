@@ -15,8 +15,15 @@ class AnswerToBigfive
              # 次の質問の準備
              if user.big_five_progress.finished?
                 puts "finished =========="
-                # 終了
-                result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
+            
+                # ユーザーの性格分析
+                if user.user_personality.memo.nil?
+                    # 終了
+                    result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を分析するからすこし待ってね！")
+                    AnalyseUserPersonality.call(user: user)
+                else
+                    result = ReplyMessage::Bigfive::PersonalityButtons.call
+                end
 
                 context.reply_messages = [result.reply_message]
                 return
@@ -44,7 +51,12 @@ class AnswerToBigfive
                     user.user_personality.update_point(answer)
                     if user.big_five_progress.finished?
                         # 終了
-                        result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を計算するからすこし待ってね！")
+                        result = ReplyMessage::Text.call(text: "おつかれさまでした！\n診断結果を分析するからすこし待ってね！")
+
+                         # ユーザーの性格分析
+                        if user.user_personality.memo.nil?
+                            AnalyseUserPersonality.call(user: user)
+                        end
 
                         context.reply_messages = [result.reply_message]
                         return

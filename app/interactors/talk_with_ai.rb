@@ -18,6 +18,14 @@ class TalkWithAi
                     ]
                 }
             ]
+            if context.user.user_personality.memo.present?
+                messages << {
+                    "role": "asistant",
+                    "content": [
+                        "#ユーザーの性格 " + context.user.user_personality.memo 
+                }
+            end
+            
             talk_logs = TalkLog.where(user_id: context.user.line_id).limit(10)
             talk_logs.each do |talk_log|
                 messages << talk_log.build_json

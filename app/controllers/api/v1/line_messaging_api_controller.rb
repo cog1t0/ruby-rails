@@ -21,6 +21,7 @@ module Api
                         end
                         LINEBOT_CLIENT.reply_message(event['replyToken'], reply_message)
                     when Line::Bot::Event::Postback
+                        LoadingAnimation::LoadingAnimation.call(chatId: event['source']['userId'])
                         data = event['postback']['data']
                         params = data.split('&').map { |param| param.split('=') }.to_h
                         action = params['action']
@@ -34,9 +35,12 @@ module Api
                             result = AnswerToBigfive.call(user: user, user_choice_id: user_choice_id)
                             # 配列で返ってくるので、それを展開してreply_messageに追加
                             reply_message.concat(result.reply_messages)
+                        when 'personality'
+                            result = AnalyseUserPersonalityForTalk.call(user: user)
+                            reply_message << result.reply_message
                         else
                             Rails.logger.error("==================== postback error")
-                            result = ReplyMessage::Text.call(text: "他の機能は、これから作るから待っててね！")
+                            result = ReplyMessage::Text.call(text: "他の機能は、いま一生懸命作ってるよ！待っててね！")
                             reply_message << result.reply_message
                         end
 
